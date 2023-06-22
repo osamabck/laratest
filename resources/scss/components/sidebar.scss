@@ -1,0 +1,31 @@
+.sidebar {
+    width: 100%;
+    max-width: 22rem;
+    display: flex;
+    flex-direction: column;
+    background-color: #e9edf1;
+    padding: 2rem;
+    z-index: 1;
+    nav {
+        display: flex;
+        flex-direction: column;
+        row-gap: 1rem;
+        a {
+            padding: 1rem;
+            border: 1px solid transparent;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            column-gap: 1rem;
+            &:hover,
+            &:focus-visible {
+                background-color: rgba(0, 0, 0, 0.05);
+                border-color: #999;
+            }
+            span,
+            svg {
+                color: #444;
+            }
+        }
+    }
+}

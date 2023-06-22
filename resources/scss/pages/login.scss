@@ -1,0 +1,14 @@
+.login_page {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    form {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        justify-content: center;
+        row-gap: 1.5rem;
+        max-width: 45rem;
+        width: 100%;
+    }
+}
