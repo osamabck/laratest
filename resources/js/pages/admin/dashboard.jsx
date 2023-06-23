@@ -1,12 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Card } from "antd";
 import Layout from "../../components/layout";
 import "../../../scss/pages/dashboardpage.scss";
+import LoaderContext from "../../other/loader";
 
 export default function Dashboard() {
     const [usersCount, setUsersCount] = useState(0);
+    const { setLoading } = useContext(LoaderContext);
 
     const fetchUserCount = async () => {
+        setLoading(true);
         await fetch("/api/admin/dashboard/info", {
             method: "POST",
             headers: {
@@ -22,6 +25,10 @@ export default function Dashboard() {
                 } else {
                     // failed to fetch users count;
                 }
+            })
+            .catch((err) => console.error(err))
+            .finally(() => {
+                setLoading(false);
             });
     };
 

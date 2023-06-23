@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import "../../../scss/pages/dashboardpage.scss";
 import Modal from "../../components/modal";
 import { BsArrowLeftShort, BsArrowRightShort, BsTrash3 } from "react-icons/bs";
@@ -6,6 +6,7 @@ import { DatePicker } from "antd";
 import { Input } from "antd";
 import Layout from "../../components/layout";
 import { Space, Table } from "antd";
+import LoaderContext from "../../other/loader";
 
 export default function Users() {
     const [users, setUsers] = useState([]);
@@ -19,6 +20,7 @@ export default function Users() {
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [email, setEmail] = useState("");
+    const { setLoading } = useContext(LoaderContext);
 
     let more = true;
     let fetching = false;
@@ -61,6 +63,7 @@ export default function Users() {
         if (fetching) return;
         if (!more) return;
         fetching = true;
+        setLoading(true);
         await fetch("/api/admin/users/list", {
             method: "POST",
             headers: {
@@ -82,12 +85,16 @@ export default function Users() {
                 }
             })
             .catch((err) => console.error(err))
-            .finally(() => (fetching = false));
+            .finally(() => {
+                fetching = false;
+                setLoading(false);
+            });
     };
 
     const deleteUser = async (user) => {
         if (deleting) return;
         deleting = true;
+        setLoading(true);
         await fetch("/api/admin/users/delete", {
             method: "POST",
             headers: {
@@ -107,7 +114,10 @@ export default function Users() {
                 }
             })
             .catch((err) => console.error(err))
-            .finally(() => (deleting = false));
+            .finally(() => {
+                deleting = false;
+                setLoading(false);
+            });
     };
 
     const addUser = async () => {
@@ -116,6 +126,7 @@ export default function Users() {
         if (password !== confirmPassword) return;
         if (adding) return;
         adding = true;
+        setLoading(true);
         await fetch("/api/admin/users/add", {
             method: "POST",
             headers: {
@@ -145,7 +156,10 @@ export default function Users() {
                 }
             })
             .catch((err) => console.error(err))
-            .finally(() => (fetching = false));
+            .finally(() => {
+                fetching = false;
+                setLoading(false);
+            });
     };
 
     useEffect(() => {

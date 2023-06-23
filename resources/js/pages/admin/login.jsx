@@ -3,14 +3,17 @@ import "../../../scss/pages/login.scss";
 import AuthContext from "../../other/Auth";
 import { router } from "@inertiajs/react";
 import Layout from "../../components/layout";
+import LoaderContext from "../../other/loader";
 
 export default function Login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const { setAuth } = useContext(AuthContext);
+    const { setLoading } = useContext(LoaderContext);
 
     const login = async (e) => {
         e.preventDefault();
+        setLoading(true);
         if (email == "" || password == "") return;
         await fetch("/admin/login", {
             method: "POST",
@@ -34,7 +37,10 @@ export default function Login() {
                     // can't login
                 }
             })
-            .catch((err) => console.error(err));
+            .catch((err) => console.error(err))
+            .finally(() => {
+                setLoading(false);
+            });
     };
 
     return (

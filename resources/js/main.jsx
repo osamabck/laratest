@@ -3,6 +3,7 @@ import { createRoot } from "react-dom/client";
 import "../scss/main.scss";
 import React, { useState } from "react";
 import AuthContext from "./other/Auth.js";
+import LoaderContext from "./other/loader";
 
 createInertiaApp({
     resolve: (name) => {
@@ -20,10 +21,13 @@ createInertiaApp({
 
 function Wrapper(props) {
     const [auth, setAuth] = useState(props.auth);
+    const [loading, setLoading] = useState(false);
 
     return (
         <AuthContext.Provider value={{ auth, setAuth }}>
-            {props.children}
+            <LoaderContext.Provider value={{ loading, setLoading }}>
+                {props.children}
+            </LoaderContext.Provider>
         </AuthContext.Provider>
     );
 }

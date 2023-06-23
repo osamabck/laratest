@@ -1,13 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import "../../../scss/pages/dashboardpage.scss";
 import Layout from "../../components/layout";
 import { Table } from "antd";
+import LoaderContext from "../../other/loader";
 
 export default function AgeSum() {
     const [users, setUsers] = useState([]);
     const [ageMin, setAgeMin] = useState(0);
     const [ageMax, setAgeMax] = useState(100);
     const [total, setTotal] = useState(0);
+    const { setLoading } = useContext(LoaderContext);
 
     let fetching = false;
 
@@ -39,6 +41,7 @@ export default function AgeSum() {
         if (typeof ageMax != "number") return;
         if (fetching) return;
         fetching = true;
+        setLoading(true);
         await fetch("/api/admin/users/agerange", {
             method: "POST",
             headers: {
@@ -59,7 +62,10 @@ export default function AgeSum() {
                 }
             })
             .catch((err) => console.error(err))
-            .finally(() => (fetching = false));
+            .finally(() => {
+                fetching = false;
+                setLoading(false);
+            });
     };
 
     useEffect(() => {

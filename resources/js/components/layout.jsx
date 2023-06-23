@@ -3,6 +3,7 @@ import "../../scss/components/layout.scss";
 import Header from "./header";
 import Footer from "./footer";
 import Sidebar from "./sidebar";
+import Loader from "./loader";
 
 export default function Layout(props) {
     return (
@@ -13,6 +14,7 @@ export default function Layout(props) {
                 {props.children}
             </div>
             <Footer />
+            <Loader />
         </div>
     );
 }

@@ -1,11 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import "../../../scss/pages/dashboardpage.scss";
 import Layout from "../../components/layout";
 import { Table } from "antd";
+import LoaderContext from "../../other/loader";
 
 export default function AgeSum() {
     const [users, setUsers] = useState([]);
     const [age, setAge] = useState("");
+    const { setLoading } = useContext(LoaderContext);
 
     let fetching = false;
 
@@ -56,6 +58,7 @@ export default function AgeSum() {
         if (typeof age != "number") return;
         if (fetching) return;
         fetching = true;
+        setLoading(true);
         await fetch("/api/admin/users/agesum", {
             method: "POST",
             headers: {
@@ -69,13 +72,21 @@ export default function AgeSum() {
             .then((r) => r.json())
             .then((r) => {
                 if (r.success) {
-                    setUsers(r.data.users.map((u) => ({ ...u, key: `${u.id1}-${u.id2}` })));
+                    setUsers(
+                        r.data.users.map((u) => ({
+                            ...u,
+                            key: `${u.id1}-${u.id2}`,
+                        }))
+                    );
                 } else {
                     // failed to fetch data
                 }
             })
             .catch((err) => console.error(err))
-            .finally(() => (fetching = false));
+            .finally(() => {
+                setLoading(false);
+                fetching = false;
+            });
     };
 
     useEffect(() => {
