@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import "../../../scss/pages/dashboardpage.scss";
 import Layout from "../../components/layout";
 import { Table } from "antd";
-import LoaderContext from "../../other/loader";
+import LoaderContext from "../../other/Loader.js";
 
 export default function AgeSum() {
     const [users, setUsers] = useState([]);

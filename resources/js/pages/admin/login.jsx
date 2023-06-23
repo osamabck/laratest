@@ -3,7 +3,7 @@ import "../../../scss/pages/login.scss";
 import AuthContext from "../../other/Auth";
 import { router } from "@inertiajs/react";
 import Layout from "../../components/layout";
-import LoaderContext from "../../other/loader";
+import LoaderContext from "../../other/Loader.js";
 
 export default function Login() {
     const [email, setEmail] = useState("");

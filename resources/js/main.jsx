@@ -3,7 +3,7 @@ import { createRoot } from "react-dom/client";
 import "../scss/main.scss";
 import React, { useState } from "react";
 import AuthContext from "./other/Auth.js";
-import LoaderContext from "./other/loader";
+import LoaderContext from "./other/Loader.js";
 
 createInertiaApp({
     resolve: (name) => {

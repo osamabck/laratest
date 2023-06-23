@@ -6,7 +6,7 @@ import { DatePicker } from "antd";
 import { Input } from "antd";
 import Layout from "../../components/layout";
 import { Space, Table } from "antd";
-import LoaderContext from "../../other/loader";
+import LoaderContext from "../../other/Loader.js";
 
 export default function Users() {
     const [users, setUsers] = useState([]);

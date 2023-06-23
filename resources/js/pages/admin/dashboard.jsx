@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { Card } from "antd";
 import Layout from "../../components/layout";
 import "../../../scss/pages/dashboardpage.scss";
-import LoaderContext from "../../other/loader";
+import LoaderContext from "../../other/Loader.js";
 
 export default function Dashboard() {
     const [usersCount, setUsersCount] = useState(0);
